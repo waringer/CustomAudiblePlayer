@@ -1,2 +1,5 @@
 # CustomAudiblePlayer
-Audible Custom WebPlayer
+
+Customise Audible WebPlayer.
+- Dark Skin
+- Add Volume Control (todo)
