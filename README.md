@@ -1,8 +1,12 @@
-# CustomAudiblePlayer
+# Customize Audible Cloud Player
 
-Customise Audible WebPlayer to add the following:
+Change the Audible Cloud Player to:
 - Dark Skin
-- Add Volume Control - based on code from https://github.com/peterphmikkelsen/audible-volume-control
+- Add Volume Control 
+   - based on code from https://github.com/peterphmikkelsen/audible-volume-control
+   - remembers volume settings.
+
+Sample Image:
 
 ![Sample image](preview.png)
 
