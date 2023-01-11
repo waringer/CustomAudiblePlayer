@@ -3,7 +3,9 @@
 Customise Audible WebPlayer to add the following:
 - Dark Skin
 - Add Volume Control - based on code from https://github.com/peterphmikkelsen/audible-volume-control
-  
+
+![Sample image](preview.png)
+
 ## Installation
 
 1. First you need a Browser Extension for managing UserScripts (skip if you already have one):  
