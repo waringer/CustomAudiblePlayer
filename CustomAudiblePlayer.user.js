@@ -2,7 +2,7 @@
 // @name         Audible Custom WebPlayer
 // @namespace    https://github.com/waringer/CustomAudiblePlayer/raw/main/CustomAudiblePlayer.user.js
 // @version      2025.07.07.01
-// @description  Audible Custom WebPlayer
+// @description  Dark Skin and Volume Slider Audible Custom WebPlayer
 // @author       waringer
 // @license      BSD
 // @run-at       document-end
