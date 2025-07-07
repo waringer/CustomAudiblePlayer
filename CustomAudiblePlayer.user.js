@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Audible Custom WebPlayer
 // @namespace    https://github.com/waringer/CustomAudiblePlayer/raw/main/CustomAudiblePlayer.user.js
-// @version      2023.02.16.01
+// @version      2025.07.07.01
 // @description  Audible Custom WebPlayer
 // @author       waringer
 // @license      BSD
@@ -49,6 +49,10 @@ body, html {
   float: left;
   padding-right: 1rem;
   padding-top: 0.5rem;
+}
+
+#adbl-cloud-player-bottom-menu-area {
+  height:auto !important
 }
 `;
 
