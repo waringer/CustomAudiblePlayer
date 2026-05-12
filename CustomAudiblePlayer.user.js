@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Audible Custom WebPlayer
 // @namespace    https://github.com/waringer/CustomAudiblePlayer/raw/main/CustomAudiblePlayer.user.js
-// @version      2026.03.27.01
+// @version      2026.05.12.01
 // @description  Dark Skin and Volume Slider Audible Custom WebPlayer
 // @author       waringer
 // @license      BSD
@@ -14,9 +14,9 @@
 // PHASE 1 — document-start: intercept attachShadow() before the design system
 // loads so all shadow roots are created with mode:'open' instead of 'closed'
 // ---------------------------------------------------------------------------
-(function() {
+(function () {
     const orig = Element.prototype.attachShadow;
-    Element.prototype.attachShadow = function(init) {
+    Element.prototype.attachShadow = function (init) {
         return orig.call(this, { ...init, mode: "open" });
     };
 })();
@@ -47,49 +47,49 @@ const NS = "http://www.w3.org/2000/svg";
 
 const ICON_SVGS = {
     "play-previous": {
-        w:"48", h:"48", vb:"0 0 48 48",
+        w: "48", h: "48", vb: "0 0 48 48",
         els: [
-            {tag:"rect", a:{width:"48",height:"48",fill:"none"}},
-            {tag:"path", a:{fill:"#888",d:"M24.8,24,35.4,13.4a1.9,1.9,0,0,0-.2-3,2.1,2.1,0,0,0-2.7.2l-11.9,12a1.9,1.9,0,0,0,0,2.8l11.9,12a2.1,2.1,0,0,0,2.7.2,1.9,1.9,0,0,0,.2-3Z"}},
-            {tag:"path", a:{fill:"#888",d:"M14,10a2,2,0,0,0-2,2V36a2,2,0,0,0,4,0V12A2,2,0,0,0,14,10Z"}},
+            { tag: "rect", a: { width: "48", height: "48", fill: "none" } },
+            { tag: "path", a: { fill: "#888", d: "M24.8,24,35.4,13.4a1.9,1.9,0,0,0-.2-3,2.1,2.1,0,0,0-2.7.2l-11.9,12a1.9,1.9,0,0,0,0,2.8l11.9,12a2.1,2.1,0,0,0,2.7.2,1.9,1.9,0,0,0,.2-3Z" } },
+            { tag: "path", a: { fill: "#888", d: "M14,10a2,2,0,0,0-2,2V36a2,2,0,0,0,4,0V12A2,2,0,0,0,14,10Z" } },
         ],
     },
     "back-30": {
-        w:"50", h:"50", vb:"0 0 150 138",
-        svgStyle:"shape-rendering:geometricPrecision;fill-rule:evenodd;clip-rule:evenodd",
+        w: "50", h: "50", vb: "0 0 150 138",
+        svgStyle: "shape-rendering:geometricPrecision;fill-rule:evenodd;clip-rule:evenodd",
         els: [
-            {tag:"path", a:{fill:"#888",d:"M 24.5,76.5 C 24.5,75.5 24.5,74.5 24.5,73.5C 25.8333,73.5 27.1667,73.5 28.5,73.5C 32.8683,101.03 49.0349,116.03 77,118.5C 108.676,114.488 124.343,96.4875 124,64.5C 118.661,38.6619 102.827,24.6619 76.5,22.5C 76.8747,25.3965 76.3747,28.0632 75,30.5C 68.7536,27.2938 62.5869,23.9605 56.5,20.5C 62.6076,16.1128 69.2743,12.7795 76.5,10.5C 76.5,12.8333 76.5,15.1667 76.5,17.5C 111.011,21.5078 128.511,40.8411 129,75.5C 121.574,110.232 100.074,125.732 64.5,122C 41.3732,115.377 28.0399,100.21 24.5,76.5 Z"}},
-            {tag:"text", a:{fill:"#888","font-family":"Helvetica","font-size":"24","text-anchor":"middle",transform:"matrix(1.66863,0,0,1.60969,-38.6568,-30.6274)",x:"68.66",y:"69.75"}, text:"30"},
+            { tag: "path", a: { fill: "#888", d: "M 24.5,76.5 C 24.5,75.5 24.5,74.5 24.5,73.5C 25.8333,73.5 27.1667,73.5 28.5,73.5C 32.8683,101.03 49.0349,116.03 77,118.5C 108.676,114.488 124.343,96.4875 124,64.5C 118.661,38.6619 102.827,24.6619 76.5,22.5C 76.8747,25.3965 76.3747,28.0632 75,30.5C 68.7536,27.2938 62.5869,23.9605 56.5,20.5C 62.6076,16.1128 69.2743,12.7795 76.5,10.5C 76.5,12.8333 76.5,15.1667 76.5,17.5C 111.011,21.5078 128.511,40.8411 129,75.5C 121.574,110.232 100.074,125.732 64.5,122C 41.3732,115.377 28.0399,100.21 24.5,76.5 Z" } },
+            { tag: "text", a: { fill: "#888", "font-family": "Helvetica", "font-size": "24", "text-anchor": "middle", transform: "matrix(1.66863,0,0,1.60969,-38.6568,-30.6274)", x: "68.66", y: "69.75" }, text: "30" },
         ],
     },
     "play-fill": {
-        w:"50", h:"50", vb:"0 0 48 48",
+        w: "50", h: "50", vb: "0 0 48 48",
         els: [
-            {tag:"rect", a:{width:"48",height:"48",fill:"none"}},
-            {tag:"path", a:{fill:"#888",d:"M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM34.6,24.7,18.1,34.8c-.6.4-1.1.1-1.1-.6V13.8c0-.7.5-1,1.1-.6L34.6,23.3A.8.8,0,0,1,34.6,24.7Z"}},
+            { tag: "rect", a: { width: "48", height: "48", fill: "none" } },
+            { tag: "path", a: { fill: "#888", d: "M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM34.6,24.7,18.1,34.8c-.6.4-1.1.1-1.1-.6V13.8c0-.7.5-1,1.1-.6L34.6,23.3A.8.8,0,0,1,34.6,24.7Z" } },
         ],
     },
     "pause-fill": {
-        w:"50", h:"50", vb:"0 0 48 48",
+        w: "50", h: "50", vb: "0 0 48 48",
         els: [
-            {tag:"rect", a:{width:"48",height:"48",fill:"none"}},
-            {tag:"path", a:{fill:"#888",d:"M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM21,31a2,2,0,0,1-4,0V17a2,2,0,0,1,2-2,2.1,2.1,0,0,1,2,2Zm10,0a2,2,0,0,1-4,0V17a2,2,0,0,1,2-2,2.1,2.1,0,0,1,2,2Z"}},
+            { tag: "rect", a: { width: "48", height: "48", fill: "none" } },
+            { tag: "path", a: { fill: "#888", d: "M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM21,31a2,2,0,0,1-4,0V17a2,2,0,0,1,2-2,2.1,2.1,0,0,1,2,2Zm10,0a2,2,0,0,1-4,0V17a2,2,0,0,1,2-2,2.1,2.1,0,0,1,2,2Z" } },
         ],
     },
     "forward-30": {
-        w:"50", h:"50", vb:"0 0 156 150",
-        svgStyle:"shape-rendering:geometricPrecision;fill-rule:evenodd;clip-rule:evenodd",
+        w: "50", h: "50", vb: "0 0 156 150",
+        svgStyle: "shape-rendering:geometricPrecision;fill-rule:evenodd;clip-rule:evenodd",
         els: [
-            {tag:"path", a:{fill:"#888",d:"M 129.5,77.5 C 130.833,77.5 132.167,77.5 133.5,77.5C 133.5,79.1667 133.5,80.8333 133.5,82.5C 127.281,110.546 109.781,125.546 81,127.5C 62.2911,126.149 47.6244,117.816 37,102.5C 22.7447,74.6508 27.578,50.8175 51.5,31C 60.5056,24.7476 70.5056,21.5809 81.5,21.5C 81.5,19.1667 81.5,16.8333 81.5,14.5C 88.7257,16.7795 95.3924,20.1128 101.5,24.5C 95.048,28.3927 88.3813,31.726 81.5,34.5C 81.5,31.8333 81.5,29.1667 81.5,26.5C 47.8552,30.6485 32.3552,49.6485 35,83.5C 41.2167,107.788 56.8834,120.788 82,122.5C 109.448,119.548 125.281,104.548 129.5,77.5 Z"}},
-            {tag:"text", a:{fill:"#888","font-family":"Helvetica","font-size":"24","text-anchor":"middle",transform:"matrix(1.66863,0,0,1.60969,-38.6568,-30.6274)",x:"72.02",y:"72.42"}, text:"30"},
+            { tag: "path", a: { fill: "#888", d: "M 129.5,77.5 C 130.833,77.5 132.167,77.5 133.5,77.5C 133.5,79.1667 133.5,80.8333 133.5,82.5C 127.281,110.546 109.781,125.546 81,127.5C 62.2911,126.149 47.6244,117.816 37,102.5C 22.7447,74.6508 27.578,50.8175 51.5,31C 60.5056,24.7476 70.5056,21.5809 81.5,21.5C 81.5,19.1667 81.5,16.8333 81.5,14.5C 88.7257,16.7795 95.3924,20.1128 101.5,24.5C 95.048,28.3927 88.3813,31.726 81.5,34.5C 81.5,31.8333 81.5,29.1667 81.5,26.5C 47.8552,30.6485 32.3552,49.6485 35,83.5C 41.2167,107.788 56.8834,120.788 82,122.5C 109.448,119.548 125.281,104.548 129.5,77.5 Z" } },
+            { tag: "text", a: { fill: "#888", "font-family": "Helvetica", "font-size": "24", "text-anchor": "middle", transform: "matrix(1.66863,0,0,1.60969,-38.6568,-30.6274)", x: "72.02", y: "72.42" }, text: "30" },
         ],
     },
     "play-next": {
-        w:"50", h:"50", vb:"0 0 48 48",
+        w: "50", h: "50", vb: "0 0 48 48",
         els: [
-            {tag:"rect", a:{width:"48",height:"48",fill:"none"}},
-            {tag:"path", a:{fill:"#888",d:"M34,10a2,2,0,0,0-2,2V36a2,2,0,0,0,4,0V12A2,2,0,0,0,34,10Z"}},
-            {tag:"path", a:{fill:"#888",d:"M15.5,10.6a2.1,2.1,0,0,0-2.7-.2,1.9,1.9,0,0,0-.2,3L23.2,24,12.6,34.6a1.9,1.9,0,0,0,.2,3,2.1,2.1,0,0,0,2.7-.2l11.9-12a1.9,1.9,0,0,0,0-2.8Z"}},
+            { tag: "rect", a: { width: "48", height: "48", fill: "none" } },
+            { tag: "path", a: { fill: "#888", d: "M34,10a2,2,0,0,0-2,2V36a2,2,0,0,0,4,0V12A2,2,0,0,0,34,10Z" } },
+            { tag: "path", a: { fill: "#888", d: "M15.5,10.6a2.1,2.1,0,0,0-2.7-.2,1.9,1.9,0,0,0-.2,3L23.2,24,12.6,34.6a1.9,1.9,0,0,0,.2,3,2.1,2.1,0,0,0,2.7-.2l11.9-12a1.9,1.9,0,0,0,0-2.8Z" } },
         ],
     },
 };
@@ -212,7 +212,7 @@ function applyIconStyle(testId) {
     if (!icon?.shadowRoot) return false;
 
     const shadow = icon.shadowRoot;
-    const svg    = shadow.querySelector("svg");
+    const svg = shadow.querySelector("svg");
     if (!svg) return false;
 
     // Ensure style tag is present (survives re-renders as long as the shadow root lives)
@@ -225,7 +225,7 @@ function applyIconStyle(testId) {
 
     // Replace SVG if a custom definition exists and hasn't been applied yet
     const name = icon.getAttribute("name");
-    const def  = ICON_SVGS[name];
+    const def = ICON_SVGS[name];
     if (def && !svg.hasAttribute("data-acwp")) {
         svg.replaceWith(buildSVG(def));
         // Mark the new SVG so we don't replace it on the next tick
@@ -285,8 +285,7 @@ function addVolumeControl() {
         </div>`;
 
     // Insert after the player content area, using the seek bar as an anchor
-    const seekTrack  = document.querySelector('[data-testid="main-track"]');
-    const playerArea = seekTrack?.parentElement?.parentElement?.parentElement?.parentElement;
+    const playerArea = document.querySelector("[class*='_playerMenu']");
     if (playerArea?.parentElement) {
         playerArea.parentElement.insertBefore(wrap, playerArea.nextSibling);
     } else {
@@ -294,7 +293,7 @@ function addVolumeControl() {
     }
 
     const track = document.getElementById("acwp-track");
-    const fill  = document.getElementById("acwp-fill");
+    const fill = document.getElementById("acwp-fill");
     const thumb = document.getElementById("acwp-thumb");
     let vol = parseFloat(localStorage.getItem("ACWP-Volume") ?? "100") / 100;
 
@@ -304,7 +303,7 @@ function addVolumeControl() {
         const pct = `${v * 100}%`;
         fill.style.width = pct;
         thumb.style.left = pct;
-        audio.volume     = v;
+        audio.volume = v;
         localStorage.setItem("ACWP-Volume", Math.round(v * 100));
     };
 
@@ -318,7 +317,7 @@ function addVolumeControl() {
     let dragging = false;
     track.addEventListener("mousedown", (e) => { dragging = true; setVolume(posFromEvent(e)); e.preventDefault(); });
     document.addEventListener("mousemove", (e) => { if (dragging) setVolume(posFromEvent(e)); });
-    document.addEventListener("mouseup",   () => { dragging = false; });
+    document.addEventListener("mouseup", () => { dragging = false; });
     track.addEventListener("wheel", (e) => { setVolume(vol - e.deltaY * 0.001); e.preventDefault(); }, { passive: false });
 }
 
